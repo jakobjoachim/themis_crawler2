@@ -76,7 +76,7 @@ def loadUrlsfromDB():
     global conn
     cursor = r.db("themis").table("crawledUrls").run(conn)
     for url in cursor:
-        if url['crawled'] is 0:
+        if url['crawled'] is "0":
             articles.add(url['url'])
         else:
             articlesCrawled.add(url['url'])
@@ -94,7 +94,7 @@ def scanHomeForUrls():
 
 def setCrawled(url, bsObj):
     articlesCrawled.add(url)
-    saveUrlInDB(url, 1)
+    saveUrlInDB(url, "1")
     try:
         #only crashes if url is not in articles set which should NEVER happen
         articles.remove(url)
@@ -105,7 +105,7 @@ def setCrawled(url, bsObj):
         uriFull = bsObj.find("link", {"rel":"canonical"})
         uri = uriFull.attrs['href']
         articlesCrawled.add(uri)
-        saveUrlInDB(uri, 1)
+        saveUrlInDB(uri, "1")
     except:
         print("no canonical link found")
 
@@ -118,7 +118,7 @@ def extractArticles(bsObj):
                 #We have found a new page
                 newPage = link.attrs['href']
                 articles.add(newPage)
-                saveUrlInDB(newPage, 0)
+                saveUrlInDB(newPage, "0")
 
 def main():
     global articles
