@@ -134,3 +134,5 @@ def main():
         data = getData(bsObj)
         saveToDB(data)
         print("another one")
+
+main()
