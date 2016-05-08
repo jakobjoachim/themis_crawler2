@@ -108,7 +108,7 @@ def setCrawled(url, bsObj):
         articlesCrawled.add(uri)
         saveUrlInDB(uri, 1)
     except:
-        print("no canonical link found")
+        print("no canonical link found or no bsObj given")
 
 def extractArticles(bsObj):
     global articles
@@ -130,7 +130,11 @@ def main():
     while True:
         url = getRandomArticleUrl()
         print(url)
-        bsObj = buildBeautifulSoup(url)
+        try:
+            bsObj = buildBeautifulSoup(url)
+        except:
+            print("building soup failed")
+            setCrawled(url)
         setCrawled(url, bsObj)
         extractArticles(bsObj)
         data = getData(bsObj)
