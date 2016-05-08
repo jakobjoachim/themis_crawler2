@@ -129,7 +129,6 @@ def main():
         scanHomeForUrls()
     while True:
         url = getRandomArticleUrl()
-        print(url)
         try:
             bsObj = buildBeautifulSoup(url)
         except:
@@ -141,10 +140,10 @@ def main():
                 articles.remove(url)
             except:
                 print("failed to remove url from articles set, should NOT have happend")
+            continue
         setCrawled(url, bsObj)
         extractArticles(bsObj)
         data = getData(bsObj)
         saveToDB(data)
-        print("another one")
 
 main()
