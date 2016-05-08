@@ -47,7 +47,7 @@ def getData(bsObj):
 
     data = {
        'title' : title,
-       'content' : result,
+       'content' : content,
        'author' : author,
        'uri' : uri,
        'date' : date
