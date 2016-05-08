@@ -45,13 +45,13 @@ def getData(bsObj):
     else:
         return
 
-    data = {
+    data = [{
        'title' : title,
        'content' : result,
        'author' : author,
        'uri' : uri,
        'date' : date
-    }
+    }]
     return json.dumps(data)
 
 def saveToDB(item):
@@ -60,10 +60,10 @@ def saveToDB(item):
 
 def saveUrlInDB(url, isCrawled):
     global conn
-    rawData = {
+    rawData = [{
        'url' : url,
        'crawled' : isCrawled
-    }
+    }]
     data = json.dumps(rawData)
     r.db("themis").table("crawledUrls").filter(r.row["url"] == url).delete().run(conn)
     r.db("themis").table("crawledUrls").insert(data).run(conn)
