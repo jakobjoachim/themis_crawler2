@@ -70,7 +70,8 @@ def saveUrlInDB(url, isCrawled):
 
 def getRandomArticleUrl():
     global articles
-    return random.sample(set(articles), 1)
+    urlArray = random.sample(set(articles), 1)
+    return urlArray[0]
 
 def loadUrlsfromDB():
     global conn
