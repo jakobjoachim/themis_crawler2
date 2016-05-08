@@ -114,7 +114,7 @@ def extractArticles(bsObj):
     global articlesCrawled
     for link in bsObj.findAll("a", href=re.compile("^http://www.nytimes.com/[0-9][0-9][0-9][0-9]/[0-9][0-9]/[0-9][0-9]/")):
         if 'href' in link.attrs:
-            if link.attrs['href'] not in articles and not in articlesCrawled:
+            if (link.attrs['href'] not in articles) and (link.attrs['href'] not in articlesCrawled):
                 #We have found a new page
                 newPage = link.attrs['href']
                 articles.add(newPage)
