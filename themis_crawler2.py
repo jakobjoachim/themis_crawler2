@@ -131,7 +131,7 @@ def main():
         try:
             bsObj = buildBeautifulSoup(url)
         except:
-            print("building soup failed")
+            print("building soup failed with url: %s" % url)
             articlesCrawled.add(url)
             saveUrlInDB(url, 1)
             try:
