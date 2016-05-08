@@ -134,7 +134,13 @@ def main():
             bsObj = buildBeautifulSoup(url)
         except:
             print("building soup failed")
-            setCrawled(url)
+            articlesCrawled.add(url)
+            saveUrlInDB(url, 1)
+            try:
+                #only crashes if url is not in articles set which should NEVER happen
+                articles.remove(url)
+            except:
+                print("failed to remove url from articles set, should NOT have happend")
         setCrawled(url, bsObj)
         extractArticles(bsObj)
         data = getData(bsObj)
