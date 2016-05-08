@@ -3,7 +3,6 @@ from urllib.request import HTTPCookieProcessor
 from bs4 import BeautifulSoup
 from http.cookiejar import CookieJar
 import rethinkdb as r
-import json
 import re
 import random
 
@@ -52,7 +51,7 @@ def getData(bsObj):
        'uri' : uri,
        'date' : date
     }
-    return data
+    saveToDB(data)
 
 def saveToDB(item):
     global conn
@@ -64,7 +63,6 @@ def saveUrlInDB(url, isCrawled):
        'url' : url,
        'crawled' : isCrawled
     }
-    data = json.dumps(rawData)
     r.db("themis").table("crawledUrls").filter(r.row["url"] == url).delete().run(conn)
     r.db("themis").table("crawledUrls").insert(rawData).run(conn)
 
@@ -143,7 +141,5 @@ def main():
             continue
         setCrawled(url, bsObj)
         extractArticles(bsObj)
-        data = getData(bsObj)
-        saveToDB(data)
 
 main()
