@@ -79,6 +79,7 @@ def loadUrlsfromDB():
             articles.add(url['url'])
         else:
             articlesCrawled.add(url['url'])
+    print("%d articles found to crawl, %d already Crawled" % (len(articles), len(articlesCrawled)))
 
 def buildBeautifulSoup(pageUrl):
     cj = CookieJar()
@@ -141,5 +142,6 @@ def main():
             continue
         setCrawled(url, bsObj)
         extractArticles(bsObj)
+        getData(bsObj)
 
 main()
