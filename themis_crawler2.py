@@ -61,7 +61,7 @@ def saveToDB(item):
 def saveUrlInDB(url, isCrawled):
     global conn
     rawData = {
-       'url' : url
+       'url' : url,
        'crawled' : isCrawled
     }
     data = json.dumps(rawData)
