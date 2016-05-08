@@ -66,7 +66,7 @@ def saveUrlInDB(url, isCrawled):
     }
     data = json.dumps(rawData)
     r.db("themis").table("crawledUrls").filter(r.row["url"] == url).delete().run(conn)
-    r.db("themis").table("crawledUrls").insert(rawdata).run(conn)
+    r.db("themis").table("crawledUrls").insert(rawData).run(conn)
 
 def getRandomArticleUrl():
     global articles
@@ -128,6 +128,7 @@ def main():
         scanHomeForUrls()
     while True:
         url = getRandomArticleUrl()
+        print(url)
         bsObj = buildBeautifulSoup(url)
         setCrawled(url, bsObj)
         extractArticles(bsObj)
