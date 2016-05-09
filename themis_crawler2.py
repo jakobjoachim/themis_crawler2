@@ -62,6 +62,7 @@ def getData(bsObj):
        'url' : uri,
        'date' : date
     }
+    setCrawled(url, bsObj)
     saveToDB(data)
 
 def saveToDB(item):
@@ -89,7 +90,6 @@ def loadUrlsfromDB():
         if url['crawled'] is 0:
             articles.add(url['url'])
         else:
-            print (url['url'])
             articlesCrawled.add(url['url'])
     print("%d articles found to crawl, %d already Crawled" % (len(articles), len(articlesCrawled)))
 
@@ -154,7 +154,6 @@ def main():
             except:
                 print("failed to remove url from articles set, should NOT have happend")
             continue
-        setCrawled(url, bsObj)
         extractArticles(bsObj)
         getData(bsObj)
         print("another one")
