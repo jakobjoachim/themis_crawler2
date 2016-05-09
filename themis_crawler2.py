@@ -5,7 +5,8 @@ from http.cookiejar import CookieJar
 import rethinkdb as r
 import re
 import random
-import datetime
+from datetime import datetime, date, time
+from pytz import timezone
 
 articles = set() # article pages we want to crawl, but have not yet!
 articlesCrawled = set() # articles we already crawled
@@ -16,7 +17,7 @@ def getData(bsObj):
     storyContentList = bsObj.findAll("p", {"class":"story-body-text story-content"})
     for paragraph in storyContentList:
         content.append(paragraph.get_text())
-    if (content == [])
+    if (len(content) == 0):
         return
 
     titleFull = bsObj.find("meta", {"name":"hdl"})
@@ -44,6 +45,8 @@ def getData(bsObj):
     if (not dateFull is None):
         date = dateFull.attrs['content']
         date = datetime.strptime(date, "%Y%m%d%H%M%S")
+        utc = timezone('UTC')
+        date = utc.localize(date)
     else:
         return
 
@@ -58,7 +61,7 @@ def getData(bsObj):
 
 def saveToDB(item):
     global conn
-    r.db("themis").table("pagesNew2").insert(item).run(conn)
+    r.db("themis").table("enes").insert(item).run(conn)
 
 def saveUrlInDB(url, isCrawled):
     global conn
@@ -121,7 +124,7 @@ def extractArticles(bsObj):
                 #We have found a new page
                 newPage = link.attrs['href']
                 splitArray = newPage.split()
-+               newPage = splitArray[0]
+                newPage = splitArray[0]
                 articles.add(newPage)
                 saveUrlInDB(newPage, 0)
 
