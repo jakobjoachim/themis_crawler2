@@ -89,6 +89,7 @@ def loadUrlsfromDB():
         if url['crawled'] is 0:
             articles.add(url['url'])
         else:
+            print (url['url'])
             articlesCrawled.add(url['url'])
     print("%d articles found to crawl, %d already Crawled" % (len(articles), len(articlesCrawled)))
 
