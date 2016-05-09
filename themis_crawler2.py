@@ -63,7 +63,7 @@ def getData(bsObj):
 
 def saveToDB(item):
     global conn
-    r.db("themis").table("enes").insert(item).run(conn)
+    r.db("themis").table("pages").insert(item).run(conn)
 
 def saveUrlInDB(url, isCrawled):
     global conn
