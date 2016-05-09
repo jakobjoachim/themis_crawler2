@@ -13,7 +13,11 @@ titles = set()
 for document in cursor:
     title = document['title']
     content = document['content']
+    if (content == []):
+        continue
     author = document['author']
+    if (author == ""):
+        continue
     url = document['uri']
     date = document['date']
     if (title in titles):
