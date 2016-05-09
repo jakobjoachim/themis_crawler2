@@ -51,7 +51,7 @@ def getData(bsObj):
         date = datetime.strptime(date, "%Y%m%d%H%M%S")
         utc = timezone('UTC')
         date = utc.localize(date)
-    else:content
+    else:
         return
         print("date not found")
 
