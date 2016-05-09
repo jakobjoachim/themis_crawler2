@@ -23,7 +23,6 @@ def getData(bsObj):
     titleFull = bsObj.find("meta", {"name":"hdl"})
     if (not titleFull is None):
         title = titleFull.attrs['content']
-        print(title)
     else:
         return
 
@@ -32,14 +31,12 @@ def getData(bsObj):
         uri = uriFull.attrs['href']
         if (uri in articlesCrawled):
             return
-        print(uri)
     else:
         return
 
     authorFull = bsObj.find("meta", {"name":"byl"})
     if (not authorFull is None):
         author = authorFull.attrs['content']
-        print(author)
     else:
         return
 
@@ -153,5 +150,6 @@ def main():
         setCrawled(url, bsObj)
         extractArticles(bsObj)
         getData(bsObj)
+        print("another one")
 
 main()
