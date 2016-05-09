@@ -120,6 +120,8 @@ def extractArticles(bsObj):
             if (link.attrs['href'] not in articles) and (link.attrs['href'] not in articlesCrawled):
                 #We have found a new page
                 newPage = link.attrs['href']
+                splitArray = newPage.split()
++               newPage = splitArray[0]
                 articles.add(newPage)
                 saveUrlInDB(newPage, 0)
 
