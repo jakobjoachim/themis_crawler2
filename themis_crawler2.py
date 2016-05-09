@@ -56,15 +56,20 @@ def getData(bsObj):
         print("date not found")
 
     imageurlFull = bsObj.find("figure")
+    imageurl = ""
     if (not imageurlFull is None):
-        imageurl = imageurlFull.attrs['itemid']
+        try:
+            imageurl = imageurlFull.attrs['itemid']
+        except:
+            print("no pricture")
 
     data = {
        'title' : title,
        'content' : content,
        'author' : author[3:],
        'url' : uri,
-       'date' : date
+       'date' : date,
+       'image_url' : imageurl
     }
     setCrawled(uri, bsObj)
     saveToDB(data)
