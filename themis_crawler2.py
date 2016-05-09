@@ -15,6 +15,8 @@ def getData(bsObj):
     storyContentList = bsObj.findAll("p", {"class":"story-body-text story-content"})
     for paragraph in storyContentList:
         content.append(paragraph.get_text())
+    if (content == [])
+        return
 
     titleFull = bsObj.find("meta", {"name":"hdl"})
     if (not titleFull is None):
