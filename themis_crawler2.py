@@ -5,6 +5,7 @@ from http.cookiejar import CookieJar
 import rethinkdb as r
 import re
 import random
+import datetime
 
 articles = set() # article pages we want to crawl, but have not yet!
 articlesCrawled = set() # articles we already crawled
@@ -39,10 +40,10 @@ def getData(bsObj):
     else:
         return
 
-    dateFull = bsObj.find("meta", {"name":"pdate"})
+    dateFull = bsObj.find("meta", {"name":"ptime"})
     if (not dateFull is None):
         date = dateFull.attrs['content']
-        print(date)
+        date = datetime.strptime(date, "%Y%m%d%H%M%S")
     else:
         return
 
