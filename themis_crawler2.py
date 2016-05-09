@@ -17,21 +17,25 @@ def getData(bsObj):
     storyContentList = bsObj.findAll("p", {"class":"story-body-text story-content"})
     for paragraph in storyContentList:
         content.append(paragraph.get_text())
-    if (len(content) == 0):
+    if (content == []):
+        print("no content")
         return
 
     titleFull = bsObj.find("meta", {"name":"hdl"})
     if (not titleFull is None):
         title = titleFull.attrs['content']
     else:
+        print("no title")
         return
 
     uriFull = bsObj.find("link", {"rel":"canonical"})
     if (not uriFull is None):
         uri = uriFull.attrs['href']
         if (uri in articlesCrawled):
+            print("uri already there")
             return
     else:
+        print("url not found")
         return
 
     authorFull = bsObj.find("meta", {"name":"byl"})
@@ -39,6 +43,7 @@ def getData(bsObj):
         author = authorFull.attrs['content']
     else:
         return
+        print("author not found")
 
     dateFull = bsObj.find("meta", {"name":"ptime"})
     if (not dateFull is None):
@@ -46,8 +51,9 @@ def getData(bsObj):
         date = datetime.strptime(date, "%Y%m%d%H%M%S")
         utc = timezone('UTC')
         date = utc.localize(date)
-    else:
+    else:content
         return
+        print("date not found")
 
     data = {
        'title' : title,
