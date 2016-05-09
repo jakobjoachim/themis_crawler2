@@ -18,7 +18,7 @@ for document in cursor:
     date = document['date']
     if (title in titles):
         print("breaked")
-        break
+        continue
     titles.add(title)
     date = datetime.strptime(date, "%Y%m%d")
     utc = timezone('UTC')
@@ -26,7 +26,7 @@ for document in cursor:
     data = {
        'title' : title,
        'content' : content,
-       'author' : author[3:0],
+       'author' : author[3:],
        'url' : url,
        'date' : date
     }
