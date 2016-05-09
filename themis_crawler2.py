@@ -30,6 +30,8 @@ def getData(bsObj):
     uriFull = bsObj.find("link", {"rel":"canonical"})
     if (not uriFull is None):
         uri = uriFull.attrs['href']
+        if (uri in articlesCrawled):
+            return
         print(uri)
     else:
         return
@@ -53,8 +55,8 @@ def getData(bsObj):
     data = {
        'title' : title,
        'content' : content,
-       'author' : author,
-       'uri' : uri,
+       'author' : author[3:0],
+       'url' : uri,
        'date' : date
     }
     saveToDB(data)
